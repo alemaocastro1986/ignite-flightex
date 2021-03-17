@@ -7,7 +7,7 @@ Desafios Ignite [Rocketseat](https://rocketseat.com.br/)  trilha elixir __Chapte
 
 ## Desafio 05 - Reservas de voos
 
-Nesse desafio, você deverá criar uma aplicação de reserva de voos, onde haverá o cadastro de usuários e o cadastro de reservas para um usuário.
+Criar uma aplicação de reserva de voos, onde haverá o cadastro de usuários e o cadastro de reservas para um usuário.
 
 A struct do usuário deverá possuir os seguintes campos:
 ```elixir
