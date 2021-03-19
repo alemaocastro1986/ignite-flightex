@@ -35,6 +35,49 @@ _obs: O campo `data_completa` deverá ser uma `NaiveDateTime`_.
  **Importante**: _É importante que todos os dados sejam salvos em um Agent_.
 ***
 
+## Funções 
+```elixir
+iex(1)> Flightex.create_user(%{
+	name: "Elixander Erlangson", 
+	email: "elix@flightex.com", 
+	cpf: "88225912080"})   
+
+{:ok, "ae4a1113-3593-4602-a8c1-ee9b6f318872"}
+
+iex(2)> Flightex.create_booking (
+	"0a1975a3-08d1-4899-94b5-f18836a566e1",
+	 %{complete_date: "2021-04-22 09:00:00", 
+	   origin_city: "Brazil - Porto Alegre", 
+	   destination_city: "Japan - Tokio"})
+
+{:ok, "9d181488-4d4f-4747-8f56-9bd35816cce5"}
+
+iex(3)> Flightex.create_booking(
+"0a1975a3-08d1-4899-94b5-f18836a566e2", 
+%{complete_date: "2021-04-22 09:00:00", 
+  origin_city: "Brazil - Porto Alegre", 
+  destination_city: "Japan - Tokio"})
+
+{:error, "User not found"}
+
+iex(4)> Flightex.get_booking("9d181488-4d4f-4747-8f56-9bd35816cce5")
+
+{:ok,
+ %Flightex.Bookings.Booking{
+   complete_date: ~N[2021-04-22 09:00:00], 
+   destination_city: "Japan - Tokio",
+   id: "9d181488-4d4f-4747-8f56-9bd35816cce5",
+   id_user: "0a1975a3-08d1-4899-94b5-f18836a566e1",
+   origin_city: "Brazil - Porto Alegre"
+ }}
+
+iex(5)> Flightex.get_booking("9d181488-4d4f-4747-8f56-9bd35816cce4")
+
+{:error, "Flight booking not found."}
+
+
+```
+
 ## Testando
 
 ```bash
