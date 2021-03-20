@@ -77,6 +77,27 @@ iex(5)> Flightex.get_booking("9d181488-4d4f-4747-8f56-9bd35816cce4")
 
 
 ```
+## Desafio 06 - Relatório de reservas de voos
+
+Agora deverá ser possível também gerar relatórios das reservas de voos de acordo com o intervalo de tempo especificado na chamada da função.
+
+Dito isso, é esperado que a função receba dois parâmetros: data inicial e data final. Todas as reservas que estiverem agendadas para esse intervalo de tempo, deve entrar no arquivo CSV do relatório.
+
+Exemplo de chamada da função e saída esperada:
+```elixir
+iex> Flightex.generate_report_by_date(from_date, to_date)
+...> {:ok, "Report generated successfully"}
+```
+
+O CSV deverá estar no seguinte formato:
+
+```
+user_id1,Vitória,Salvador,2021-03-22 19:29:25.607218
+user_id2,São Paulo,Rio de Janeiro,2021-03-14 12:12:25.607218
+user_id1,São Paulo,Londres,2021-04-18 08:45:25.607218
+```
+
+ID do usuário, cidade de origem, cidade de destino e data.
 
 ## Testando
 
