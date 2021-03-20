@@ -1,6 +1,7 @@
 defmodule Flightex.Bookings.CreateBooking do
   alias Flightex.Bookings.Agent, as: BookingAgent
   alias Flightex.Bookings.Booking
+  alias Flightex.Bookings.Validation
 
   alias Flightex.Users.Agent, as: UserAgent
 
@@ -10,7 +11,7 @@ defmodule Flightex.Bookings.CreateBooking do
         destination_city: destination_city
       }) do
     with {:ok, id} <- validate_id(user_id),
-         {:ok, complete_date} <- validate_date(date),
+         {:ok, complete_date} <- Validation.validate_date(date),
          {:ok, user} <- UserAgent.get(id) do
       Booking.build(complete_date, origin_city, destination_city, user.id)
       |> save_booking()
@@ -22,13 +23,6 @@ defmodule Flightex.Bookings.CreateBooking do
   def save_booking(%Booking{id: id} = booking) do
     BookingAgent.save(booking)
     {:ok, id}
-  end
-
-  defp validate_date(date) do
-    case NaiveDateTime.from_iso8601(date) do
-      {:ok, valid_date} -> {:ok, valid_date}
-      {:error, error} -> {:error, "Datetime #{Atom.to_string(error)}"}
-    end
   end
 
   defp validate_id(id) do

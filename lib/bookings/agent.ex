@@ -17,6 +17,10 @@ defmodule Flightex.Bookings.Agent do
     Agent.get(__MODULE__, &get_booking(&1, booking_id))
   end
 
+  def get_by_dates(start_date, end_date) do
+    Agent.get(__MODULE__, &get_date_interval(&1, start_date, end_date))
+  end
+
   defp update_state(state, %Booking{id: id} = booking) do
     state
     |> Map.put(id, booking)
@@ -27,5 +31,18 @@ defmodule Flightex.Bookings.Agent do
       nil -> {:error, "Flight booking not found."}
       booking -> {:ok, booking}
     end
+  end
+
+  defp get_date_interval(state, start_date, end_date) do
+    state
+    |> Map.values()
+    |> Enum.filter(&between(&1, start_date, end_date))
+  end
+
+  defp between(%Booking{} = booking, from_date, to_date) do
+    from_date = NaiveDateTime.compare(booking.complete_date, from_date)
+    to_date = NaiveDateTime.compare(booking.complete_date, to_date)
+
+    (from_date == :gt or from_date == :eq) and (to_date == :lt or to_date == :eq)
   end
 end

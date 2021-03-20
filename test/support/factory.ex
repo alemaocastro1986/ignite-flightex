@@ -18,7 +18,7 @@ defmodule Flightex.Factory do
 
     %Booking{
       id: "4fbab03b-ffeb-41d4-8718-5ec5e29971f7",
-      complete_date: NaiveDateTime.utc_now(),
+      complete_date: ~N[2021-04-10 00:00:00],
       origin_city: "Brazil",
       destination_city: "transylvania",
       id_user: user.id
